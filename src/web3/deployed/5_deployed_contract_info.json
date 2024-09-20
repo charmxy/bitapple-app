@@ -1,0 +1,47 @@
+{
+  "BitAppleNFTFactory": {
+    "address": "0xE21d8912aF2F1450217B42723eE133f7721baAeB"
+  },
+  "NftVault": {
+    "address": "0xe9f0729297b25d86f12d0C1329644e4315c151d3"
+  },
+  "BatchProxy": {
+    "address": "0x92E5AdD5770BDAe57B9e629C23cf99A43ddE1FaF"
+  },
+  "FeeManager": {
+    "address": "0xb5F7Ee9488342bf3C82342eDC4567Da5a02BdF1F"
+  },
+  "Auction": {
+    "address": "0x8F15E832Ab5802B77bD5b93016dE2a6E92E7f269"
+  },
+  "OrderBook": {
+    "address": "0x99A45c8Db80B982539C4a30b49922ffc4E6D18cc"
+  },
+  "CurvePoolDeployer": {
+    "address": "0x7E7011Ce66A42c10f3948de32749026e21b69251"
+  },
+  "assetPackage": {
+    "address": "0x5D1DcA6E6fA32936B211E10d4f5EA794Bb1284e8"
+  },
+  "usdt": {
+    "address": "0xBc852FF445Be00F8Ff9d70E485bD2b138A079a9e"
+  },
+  "usdc": {
+    "address": "0xDE1c988d933Bc4387a0F6bBF7f79508C6a41fbc9"
+  },
+  "btc": {
+    "address": "0x770D4Bcc0d4e7ca1d9866469D3dD646eff8f3E42"
+  },
+  "bnb": {
+    "address": "0x4D06E0b5759E9eea966B930855eCB160ff470E4a"
+  },
+  "eth": {
+    "address": "0x4e1Ee96f5EfAAb2376B43b840fF8ef3cdB68Ff2a"
+  },
+  "crv": {
+    "address": "0x6ED075a01121eB72fC2E2b3E4Ed9C7FAE177bB99"
+  },
+  "bat": {
+    "address": "0xFb526BD6D44A29AEa69894a58f6fE62704539Aaa"
+  }
+}
