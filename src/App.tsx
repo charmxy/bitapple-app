@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { ConfigProvider } from "antd";
-import { routes } from "@/route/index";
+import { routes } from "@/router/index";
 import Layout from "@/layouts/Layout";
 
 function App() {
@@ -12,7 +12,16 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-      <ConfigProvider theme={{}}>
+      <ConfigProvider
+        theme={{
+          components: {
+            Input: {
+              activeBg: "transparent",
+              activeBorderColor: "#FF8C19"
+            }
+          }
+        }}
+      >
         <BrowserRouter>
           <Layout>
             <Routes>

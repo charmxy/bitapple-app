@@ -1,0 +1,66 @@
+.task-warp {
+  width: 590px;
+  height: 136px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #171717;
+}
+
+.follow-btn {
+  width: 88px;
+  height: 32px;
+  padding: 4px 24px 4px 24px;
+  gap: 8px;
+  border-radius: 8px;
+  background: #ffee9a;
+}
+
+.follow-btn.ant-btn-default:not(:disabled):not(.ant-btn-disabled):active {
+  background: #ffee9a !important;
+  color: #494900 !important;
+  border-color: #ffee9a !important;
+}
+
+.follow-btn.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+  background: #ffee9a !important;
+  color: #494900 !important;
+  border-color: #ffee9a !important;
+}
+
+.fllow-tag {
+  width: 90px;
+  height: 26px;
+  padding: 6px 16px 6px 16px;
+  border-radius: 26px;
+}
+
+.to-do-tag {
+  color: #3297ff;
+  background: #3297ff40;
+}
+.done-tag {
+  color: #0ed78f;
+  background: #0ed78f33;
+}
+
+.skip-btn {
+  width: 191px;
+  height: 56px;
+  padding: 16px 32px 16px 32px;
+  gap: 8px;
+  border-radius: 8px;
+  border: 1px solid #484848;
+  background: transparent;
+}
+
+.skip-btn.ant-btn-default:not(:disabled):not(.ant-btn-disabled):active {
+  background: transparent !important;
+  color: #ffffff !important;
+  border-color: #484848 !important;
+}
+
+.skip-btn.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+  background: transparent !important;
+  color: #ffffff !important;
+  border-color: #484848 !important;
+}

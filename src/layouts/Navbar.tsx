@@ -1,52 +1,69 @@
-import { type FC, useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-
+import { type FC, useMemo, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 const Navbar: FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const [value, setValue] = useState(1);
-  useEffect(() => {
-    location.pathname.indexOf("leaderboard") > -1
-      ? setValue(0)
-      : location.pathname.indexOf("community") > -1
-      ? setValue(2)
-      : setValue(1);
-  }, [location]);
+  useEffect(() => {}, [location]);
 
-  const HeaderBox: React.FC<{ currentVal: number }> = ({ currentVal }) => {
-    let headerBox = <></>;
-    switch (currentVal) {
-      case 0:
-        headerBox = <div className="header-text">Leaderboard</div>;
-        break;
-      case 1:
-        headerBox = (
-          <div className="points-warp">
+  const navBars = [
+    { name: "Launchpad", url: "/" },
+    { name: "Marketplace", url: "/marketplace" },
+    { name: "Swap", url: "/swap" },
+    { name: "Stake", url: "/stake" }
+  ];
+
+  const showHeaderBox = useMemo(
+    () => ["/welcome", "/", "/follow"].includes(location.pathname),
+    [location.pathname]
+  );
+
+  const HeaderBox: React.FC = () => {
+    return (
+      <>
+        <div className="flex justify-start items-center gap-[6px] cursor-pointer">
+          <img src={"/images/layout/logo.png"} alt="" />
+          <span className="text-[30px] font-semibold leading-[59px] tracking-[.02em] gradient-text">
+            BitApple
+          </span>
+        </div>
+      </>
+    );
+  };
+
+  const NavbarBox: React.FC = () => {
+    return (
+      <div>
+        <div className="w-[945px] flex flex-row items-center gap-[40px]">
+          <div className="flex justify-start items-center gap-[6px]">
             <img
-              className="w-[24px] h-[24px]"
-              src={"/images/earn/coins.svg"}
-              alt="coins"
+              className="w-[32px] h-[32px] cursor-pointer"
+              src={"/images/header/logo.png"}
+              alt="logo"
             />
-            <div className="total-points-text"></div>
+            <span className="text-[20px] font-[870] leading-[32px] tracking-[.04em] text-[#FF8C19] cursor-pointer">
+              BitApple
+            </span>
           </div>
-        );
-        break;
-      case 2:
-        headerBox = <div className="header-text">Community</div>;
-        break;
-    }
-    return headerBox;
+          <div className="flex flex-row gap-[60px]">
+            {navBars.map((item, index) => (
+              <span
+                key={index}
+                className="text-[16px] font-[500] leading-[19px] tracking-[.04em] text-[#FFFFFF] cursor-pointer"
+                onClick={() => navigate(`${item.url}`)}
+              >
+                {item.name}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
-    <div className="w-full fixed top-0 left-0 z-10 bg-[#FFF2D0] h-[129px]">
-      <div className="w-full h-[60px]"></div>
-      <div className="w-full flex justify-between items-center h-[46px]">
-        <HeaderBox currentVal={value} />
-        <div className="service-warp">
-          <div className="service-text">T2EARN</div>
-        </div>
-      </div>
+    <div className="w-full fixed top-0 left-0 z-10 h-[88px] px-[96px] py-[28px]">
+      {showHeaderBox ? <HeaderBox /> : <NavbarBox />}
     </div>
   );
 };

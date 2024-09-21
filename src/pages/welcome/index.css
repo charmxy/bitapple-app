@@ -1,0 +1,71 @@
+.invitation-input .ant-input-outlined {
+  background: transparent;
+  width: 76px;
+  height: 88px;
+  padding: 24px;
+  border: 2px solid #ff8c19;
+}
+
+.invitation-input .ant-input {
+  font-family: Power Grotesk Trial;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 48px;
+  color: #ff8c19;
+}
+
+.connect-btn {
+  width: 234px;
+  height: 56px;
+  padding: 16px 32px 16px 32px;
+  gap: 8px;
+  border-radius: 8px;
+  background: #ffee9a;
+  color: #494900;
+}
+
+.connect-btn.ant-btn-default:not(:disabled):not(.ant-btn-disabled):active {
+  background: #ffee9a !important;
+  color: #494900 !important;
+  border-color: #ffee9a !important;
+}
+
+.connect-btn.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+  background: #ffee9a !important;
+  color: #494900 !important;
+  border-color: #ffee9a !important;
+}
+
+.connect-btn.ant-btn-default:disabled {
+  width: 234px;
+  height: 56px;
+  padding: 16px 32px 16px 32px;
+  gap: 8px;
+  border-radius: 8px;
+  background: #b3b1b8;
+  color: #ececed;
+}
+
+.custom-message .ant-message-notice-content {
+  width: 343px;
+  height: 56px;
+  padding: 12px 16px 12px 16px !important;
+  gap: 16px;
+  background: #322426 !important;
+  box-shadow: 0px 8px 10px 0px #00000033, 0px 6px 30px 0px #0000001f,
+    0px 16px 24px 0px #00000024 !important;
+  display: flex !important;
+  align-items: center !important;
+  margin: 0 auto;
+  font-family: Power Grotesk Trial;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: -0.40799999237060547px;
+  text-align: left;
+  color: #ff1111;
+}
+
+.custom-message .ant-message-custom-content {
+  gap: 8px;
+}
