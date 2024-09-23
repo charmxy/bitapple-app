@@ -20,8 +20,9 @@
   padding: 16px 32px 16px 32px;
   gap: 8px;
   border-radius: 8px;
-  background: #ffee9a;
+  background: #ffee9a !important;
   color: #494900;
+  border-color: transparent !important;
 }
 
 .connect-btn.ant-btn-default:not(:disabled):not(.ant-btn-disabled):active {

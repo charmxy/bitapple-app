@@ -2,19 +2,25 @@ import React, { useState, type FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input, Button, message } from "antd";
 import type { GetProps } from "antd";
-
+import { useWeb3Modal } from "@web3modal/wagmi/react";
+import { useAccount, useDisconnect } from "wagmi";
+import { useWeb3Store } from "@/web3/use-web3-store";
+import { Web3Util } from "@/web3/web3-util";
 import "./index.css";
 
 type OTPProps = GetProps<typeof Input.OTP>;
 
 const Welcome: FC = () => {
+  const { open } = useWeb3Modal();
+  const { disconnect } = useDisconnect();
+  const { address } = useAccount();
+  const { clearState } = useWeb3Store();
   const [isValid, setIsValid] = useState<boolean>(false);
   const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
   const onChange: OTPProps["onChange"] = val => {
     if (val == "12345678") {
       setIsValid(true);
-      ///follow
     } else {
       messageApi.open({
         type: "error",
@@ -30,8 +36,15 @@ const Welcome: FC = () => {
   };
 
   const connectWallet = () => {
-    navigate("/follow");
+    open();
   };
+
+  useEffect(() => {
+    if (address) {
+      navigate("/follow");
+      console.log(address);
+    }
+  }, [address]);
 
   const sharedProps: OTPProps = { onChange };
 

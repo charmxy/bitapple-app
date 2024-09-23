@@ -11,7 +11,6 @@ import {
 } from "viem/chains";
 
 // 支持的链
-
 export const CHAINS: any[] = [
   // arbitrum,
   mainnet,
@@ -26,13 +25,25 @@ export const CHAINS: any[] = [
   base
 ];
 
-export const GQL_URLS = {
-  [sepolia.id]:
-    "https://api.studio.thegraph.com/query/61267/bitapple-sepolia/version/latest",
-  [arbitrumSepolia.id]:
-    "https://api.thegraph.com/subgraphs/name/huangxiao88/bitapple-arb",
-  [bsc.id]:
-    "https://api.studio.thegraph.com/query/61267/bitapple-bsc/version/latest"
+export const GQL_URLS = (key: string | number) => {
+  let url = "";
+  switch (key) {
+    case sepolia.id:
+      url =
+        "https://api.studio.thegraph.com/query/61267/bitapple-sepolia/version/latest";
+      break;
+    case bsc.id:
+      url =
+        "https://api.studio.thegraph.com/query/61267/bitapple-bsc/version/latest";
+      break;
+    case arbitrumSepolia.id:
+      url = "https://api.thegraph.com/subgraphs/name/huangxiao88/bitapple-arb";
+      break;
+
+    default:
+      break;
+  }
+  return url;
 };
 
 export enum BLOCKCHAIN {
@@ -47,16 +58,16 @@ export enum BLOCKCHAIN {
 }
 
 export const TOKESSWAPCHAIN: any = {
-  [bsc.id]: require("@/assets/blockchain/bnb.png"),
-  [polygon.id]: require("@/assets/blockchain/polygon.png"),
-  [mainnet.id]: require("@/assets/blockchain/eth.png"),
-  [sepolia.id]: require("@/assets/chain/eth.png"),
-  [arbitrumSepolia.id]: require("@/assets/chain/eth.png"),
-  [base.id]: require("@/assets/blockchain/base.png"),
-  [arbitrum.id]: require("@/assets/blockchain/arbitrum-one.png"),
-  [okc.id]:
-    "https://static.oklink.com/cdn/assets/imgs/234/8A836F174073E0BA.png?x-oss-process=image/resize,w_72,h_72,type_6/ignore-error,1",
-  [optimism.id]: require("@/assets/blockchain/op.png")
+  // [bsc.id]: require("@/assets/blockchain/bnb.png"),
+  // [polygon.id]: require("@/assets/blockchain/polygon.png"),
+  // [mainnet.id]: require("@/assets/blockchain/eth.png"),
+  // [sepolia.id]: require("@/assets/chain/eth.png"),
+  // [arbitrumSepolia.id]: require("@/assets/chain/eth.png"),
+  // [base.id]: require("@/assets/blockchain/base.png"),
+  // [arbitrum.id]: require("@/assets/blockchain/arbitrum-one.png"),
+  // [okc.id]:
+  //   "https://static.oklink.com/cdn/assets/imgs/234/8A836F174073E0BA.png?x-oss-process=image/resize,w_72,h_72,type_6/ignore-error,1",
+  // [optimism.id]: require("@/assets/blockchain/op.png")
 };
 
 export const RPCS: any = {

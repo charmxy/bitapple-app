@@ -12,7 +12,8 @@
   padding: 4px 24px 4px 24px;
   gap: 8px;
   border-radius: 8px;
-  background: #ffee9a;
+  border-color: transparent !important;
+  background: #ffee9a !important;
 }
 
 .follow-btn.ant-btn-default:not(:disabled):not(.ant-btn-disabled):active {
@@ -49,8 +50,8 @@
   padding: 16px 32px 16px 32px;
   gap: 8px;
   border-radius: 8px;
-  border: 1px solid #484848;
-  background: transparent;
+  border: 1px solid #484848 !important;
+  background: transparent !important;
 }
 
 .skip-btn.ant-btn-default:not(:disabled):not(.ant-btn-disabled):active {

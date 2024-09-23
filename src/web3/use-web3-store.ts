@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { devtools, persist } from "zustand/middleware";
 
@@ -25,41 +25,51 @@ const initState: Web3Store = {
   account: ""
 };
 
-interface BearState {
-  userInfo?: Iinfo;
-  setUserInfo: (data: Iinfo) => void;
-  clearState: (data: Iinfo) => void;
-}
 interface Iinfo {
   users?: any;
 }
 
-const userInfo: Iinfo = {
-  users: null
+interface BearState {
+  userInfo?: Iinfo;
+  setUserInfo?: (data: Iinfo) => void;
+  clearState?: (data: Iinfo) => void;
+}
+
+const userState: BearState = {
+  userInfo: {}
 };
 
-export const useWeb3Store = create<Web3Store, [["zustand/immer", never]]>(
-  immer(set => ({
-    ...initState,
-    updateState: (payload: any) =>
-      set((state: any) => {
-        Object.keys(payload).forEach((key: any) => (state[key] = payload[key]));
-      }),
-    clearState: () => set(() => ({ ...initState }))
-  }))
-);
+// export const useWeb3Store = create<Web3Store, [["zustand/immer", never]]>(
+//   immer(set => ({
+//     ...initState,
+//     updateState: (payload: any) =>
+//       set((state: any) => {
+//         Object.keys(payload).forEach((key: any) => (state[key] = payload[key]));
+//       }),
+//     clearState: () => set(() => ({ ...initState }))
+//   }))
+// );
+
+export const useWeb3Store = create<any>(set => ({
+  ...initState,
+  updateState: (payload: any) =>
+    set((state: any) => {
+      Object.keys(payload).forEach((key: any) => (state[key] = payload[key]));
+    }),
+  clearState: () => set(() => ({ ...initState }))
+}));
 
 export const useUserStore = create<BearState>()(
   devtools(
     persist(
       set => ({
-        ...userInfo,
+        ...userState,
         setUserInfo: (data: any) =>
           set((state: any) => {
             Object.keys(data).forEach(key => (state[key] = data[key]));
             return { ...state };
           }),
-        clearState: () => set(() => ({ ...userInfo }))
+        clearState: () => set(() => ({ ...userState }))
       }),
       {
         name: "userInfo"

@@ -56,3 +56,35 @@
   border-radius: 16px;
   background: #171717;
 }
+
+.launchpad-tag {
+  min-width: 94px;
+  height: 28px;
+  padding: 8px 16px 8px 16px;
+  border-radius: 26px;
+}
+
+.upcoming-tag {
+  color: #ebcc1b;
+  background: #ebcc1b33;
+}
+
+.upcoming-tag .ellipse {
+  background: #ebcc1b;
+}
+
+.ongoing-tag {
+  color: #0ed78f;
+  background: #0ed78f33;
+}
+.ongoing-tag .ellipse {
+  background: #0ed78f;
+}
+
+.closed-tag {
+  color: #c7c8cc;
+  background: #20202099;
+}
+.closed-tag .ellipse {
+  background: #c7c8cc;
+}

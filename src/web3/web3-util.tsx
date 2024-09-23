@@ -1,11 +1,10 @@
-import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
-import { getContractAddress } from "./deployed";
 import Web3 from "web3";
-import { CHAINS } from "./chains";
+import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
 import { BigNumber as BigNumberJs } from "bignumber.js";
-import { useWeb3Store } from "./use-web3-store";
 import { message } from "antd";
-import { ethers } from "ethers";
+import { getContractAddress } from "./deployed";
+import { CHAINS } from "./chains";
+import { useWeb3Store } from "./use-web3-store";
 export interface ExecContractMethodOptions {
   callAddress: string;
   callAbi: any[];
@@ -19,8 +18,8 @@ export const E18 = "1" + new Array(18).fill(0).join("");
 export const ZERO_ADDRESS_EEE = "0x" + new Array(40).fill("e").join("");
 export class Web3Util {
   static web3: Web3 = new Web3(Web3.givenProvider);
-  static ethersWeb3 = async () =>
-    new ethers.BrowserProvider(window.web3.currentProvider);
+  // static ethersWeb3 = async () =>
+  //   new ethers.BrowserProvider(window.web3.currentProvider);
   // 十进制转18进制
   static parseUnits(value: string, unitName = "18"): BigNumber {
     if (!value) {
@@ -114,7 +113,7 @@ export class Web3Util {
       if (CHAINS.find(item => chainId == item.id)) {
         return true;
       } else {
-        useWeb3Store.getState().open({ view: "Networks" });
+        // useWeb3Store.getState().open({ view: "Networks" });
         message.error("Connect to the right Sepolia chain first!");
       }
     }
@@ -161,7 +160,7 @@ export class Web3Util {
 
   static encodeFunctionData(abi: any[], functionName: string, params?: any[]) {
     const functionAbi = abi.find(e => e.name === functionName);
-    return this.web3.eth.abi.encodeFunctionCall(functionAbi, params);
+    return this.web3.eth.abi.encodeFunctionCall(functionAbi, params || []);
   }
 
   static encodeParameters(type: string[], parameter: any[]) {
@@ -176,7 +175,6 @@ export class Web3Util {
     sendParams
   }: ExecContractMethodOptions): Promise<any> {
     if ((await this.isConnetWalllex()) && this.CurrentChain()) {
-      // if(this.CurrentChain()){
       try {
         const account = useWeb3Store.getState().account;
         const instance = this.getContractInstance(callAddress, callAbi);
@@ -191,79 +189,74 @@ export class Web3Util {
         )
           .send({
             from: account,
-            gas: execGas,
+            gas: execGas?.toString(),
             gasPrice: BigNumber.from(gasPrice).mul(15).div(10).toString(),
-            //           gasPrice,
             ...sendParams
           })
           .then(res => {
-            showTransactionReceiptMessage({
-              type: 1,
-              transactionHash: res?.transactionHash
-            });
+            // showTransactionReceiptMessage({
+            //   type: 1,
+            //   transactionHash: res?.transactionHash
+            // });
             return res;
           })
           .catch(res => {
-            // console.log("-------------error", { ...res });
             if (!!res?.receipt?.transactionHash) {
-              globalModal.error({
-                title: <ModalTitle title="Error" />,
-                content: (
-                  <div className="ErrorCollapse">
-                    <div>
-                      Failed to call contract, refer to :<br />
-                      <a
-                        href={`https://sepolia.etherscan.io/tx/${res?.receipt?.transactionHash}`}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {res?.receipt?.transactionHash}
-                      </a>
-                    </div>
-                  </div>
-                )
-              });
+              // globalModal.error({
+              //   title: <ModalTitle title="Error" />,
+              //   content: (
+              //     <div className="ErrorCollapse">
+              //       <div>
+              //         Failed to call contract, refer to :<br />
+              //         <a
+              //           href={`https://sepolia.etherscan.io/tx/${res?.receipt?.transactionHash}`}
+              //           target="_blank"
+              //           rel="noreferrer"
+              //         >
+              //           {res?.receipt?.transactionHash}
+              //         </a>
+              //       </div>
+              //     </div>
+              //   )
+              // });
             } else {
-              globalModal.error({
-                title: <ModalTitle title="Error" />,
-                content: (
-                  <div className="ErrorCollapse">
-                    <div>{res?.innerError?.message}</div>
-                  </div>
-                )
-              });
+              // globalModal.error({
+              //   title: <ModalTitle title="Error" />,
+              //   content: (
+              //     <div className="ErrorCollapse">
+              //       <div>{res?.innerError?.message}</div>
+              //     </div>
+              //   )
+              // });
             }
             throw res;
           });
         return tx;
       } catch (err: any) {
-        globalModal.error({
-          title: <ModalTitle title="Error" />,
-          content: (
-            <div className="ErrorCollapse">
-              <div>{err.message}</div>
-            </div>
-          )
-        });
+        // globalModal.error({
+        //   title: <ModalTitle title="Error" />,
+        //   content: (
+        //     <div className="ErrorCollapse">
+        //       <div>{err.message}</div>
+        //     </div>
+        //   )
+        // });
         throw err;
       }
-      // }
     }
   }
+
   static async isConnetWalllex() {
     const account = useWeb3Store.getState().account;
     if (account) {
       return true;
     } else {
-      useWeb3Store.getState().open();
+      // useWeb3Store.getState().open();
       return false;
     }
   }
 
   static async getGasPrice() {
-    // if (useWeb3Store.getState().chainId === 11155111) {
-    //   return Web3Util.parseUnits('29', '9').toString();
-    // }
     return this.web3.eth.getGasPrice();
   }
 
@@ -317,14 +310,14 @@ export class Web3Util {
   }
 
   static async changeCHAIN(chainId: Number) {
-    return await this.web3.provider.request({
-      method: "wallet_switchEthereumChain",
-      params: [
-        {
-          chainId: `0x${chainId.toString(16)}`
-        }
-      ]
-    });
+    // return await this.web3.provider.request({
+    //   method: "wallet_switchEthereumChain",
+    //   params: [
+    //     {
+    //       chainId: `0x${chainId.toString(16)}`
+    //     }
+    //   ]
+    // });
   }
 
   static addTokenToWallet(
@@ -333,18 +326,18 @@ export class Web3Util {
     tokenDecimals: number,
     tokenImage: string
   ) {
-    return this.web3.provider.request({
-      method: "wallet_watchAsset",
-      params: {
-        type: "ERC20",
-        options: {
-          address: tokenAddress, // The address of the token.
-          symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 characters.
-          decimals: tokenDecimals, // The number of decimals in the token.
-          image: tokenImage // A string URL of the token logo.
-        }
-      }
-    });
+    // return this.web3.provider.request({
+    //   method: "wallet_watchAsset",
+    //   params: {
+    //     type: "ERC20",
+    //     options: {
+    //       address: tokenAddress, // The address of the token.
+    //       symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 characters.
+    //       decimals: tokenDecimals, // The number of decimals in the token.
+    //       image: tokenImage // A string URL of the token logo.
+    //     }
+    //   }
+    // });
   }
 
   static formatTime(diff: number) {

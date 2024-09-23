@@ -1,36 +1,24 @@
 import React, { useState, type FC, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
-import { Button } from "antd";
+import type { CountdownProps } from "antd";
+import { Statistic, Progress, Button } from "antd";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./index.css";
 
 const Launchpad: FC = () => {
-  const tasks = [
-    {
-      title: "Connect Wallets",
-      subtitle: "Sign In to Begin",
-      icon: "/images/follow/wallets.png",
-      status: 2
-    },
-    {
-      title: "Follow X",
-      subtitle: "Earn 100 Reward Points",
-      icon: "/images/follow/twitter.png",
-      status: 1
-    },
-    {
-      title: "Join  Telegram",
-      subtitle: "Earn 100 Reward Points",
-      icon: "/images/follow/telegram.png",
-      status: 1
-    }
-  ];
+  const { Countdown } = Statistic;
 
   const [actionVal, setActionVal] = useState<string>("All");
   const actions = ["All", "Ongoing", "Upcoming", "Closed"];
+
+  const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30;
+
+  const onFinish: CountdownProps["onFinish"] = () => {
+    console.log("finished!");
+  };
 
   const banners = [
     {
@@ -44,23 +32,34 @@ const Launchpad: FC = () => {
   const list = [
     {
       title: "Imps by SuperNfty",
-      image: "/images/launchpad/image.png"
+      image: "/images/launchpad/image.png",
+      status: 1,
+      arbiturmName: "Arbitrum",
+      arbiturmIcon: "/images/launchpad/arbitrum.png"
+    },
+    {
+      title: "Imps by SuperNfty",
+      image: "/images/launchpad/image2.png",
+      status: 2,
+      arbiturmName: "Arbitrum",
+      arbiturmIcon: "/images/launchpad/arbitrum.png"
+    },
+    {
+      title: "Imps by SuperNfty",
+      image: "/images/launchpad/image3.png",
+      status: 3,
+      arbiturmName: "Arbitrum",
+      arbiturmIcon: "/images/launchpad/arbitrum.png"
     }
   ];
 
   const CardBox: React.FC<{ item: any }> = ({ item }) => {
-    const fllowTag =
+    const launchpadTag =
       item.status == 1
-        ? {
-            title: "To-Do",
-            icon: "/images/follow/to-do.png",
-            classText: "to-do-tag"
-          }
-        : {
-            title: "Done",
-            icon: "/images/follow/done.png",
-            classText: "done-tag"
-          };
+        ? { title: "Upcoming", classText: "upcoming-tag" }
+        : item.status == 2
+        ? { title: "Ongoing", classText: "ongoing-tag" }
+        : { title: "Closed", classText: "closed-tag" };
 
     return (
       <div className="card-warp w-full flex flex-row gap-[21px]">
@@ -70,39 +69,124 @@ const Launchpad: FC = () => {
           alt="image"
         />
 
-        <div className="flex justify-between items-center">
-          <div className="flex flex-col gap-[12px]">
-            <span className="text-[20px] font-[700] leading-[20px] text-[#FFFFFF]">
+        <div className="w-full flex flex-col items-center gap-[32px]">
+          <div className="w-full flex flex-col gap-[16px]">
+            <span className="text-[32px] font-[760] leading-[38px] tracking-[-1px] text-[#FFFFFF]">
               {item.title}
             </span>
-            <span className="text-[14px] font-[400] leading-[17px] text-[#FFFFFF80]">
-              {item.subtitle}
-            </span>
+            <div className="w-full flex justify-start items-center gap-[37px]">
+              <div
+                className={`launchpad-tag flex justify-start items-center gap-[8px] ${launchpadTag.classText}`}
+              >
+                <span className="w-[8px] h-[8px] rounded-full ellipse"></span>
+                <span
+                  className={`text-[14px] font-[400] leading-[14px] tracking-[.04em] text-center`}
+                >
+                  {launchpadTag.title}
+                </span>
+              </div>
+              <div className="flex justify-start items-center gap-[8px]">
+                <img
+                  className="w-[24px] h-[24px]"
+                  src={item.arbiturmIcon}
+                  alt="arbiturm"
+                />
+                <span className="text-[14px] font-[400] leading-[18px] text-[#C7C8CC]">
+                  {item.arbiturmName}
+                </span>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="flex justify-between items-center">
-          {item.status == 1 ? (
-            <Button className="follow-btn">
-              <span className="text-[12px] font-[700] leading-[24px] text-center">
-                Follow
+          <div className="w-full flex justify-between items-center gap-[19px]">
+            <div className="w-full flex justify-between items-center h-[64px] rounded-[8px] px-[24px] bg-[#FFFFFF1A]">
+              <div className="flex justify-start items-center gap-[4px]">
+                <img
+                  className="w-[24px] h-[24px]"
+                  src={"/images/launchpad/assets.png"}
+                  alt="assets"
+                />
+                <span className="text-[16px] font-[400] leading-[19px] text-[#C7C8CC]">
+                  {"Assets"}
+                </span>
+              </div>
+              <div className="flex justify-start items-center gap-[6px]">
+                <img
+                  className="w-[30px] h-[25px]"
+                  src={"/images/launchpad/cake.png"}
+                  alt="assets"
+                />
+                <span className="text-[18px] font-[400] leading-[21px] text-[#FFFFFF]">
+                  {"CAKE"}
+                </span>
+              </div>
+            </div>
+            <div className="w-full flex justify-between items-center h-[64px] rounded-[8px] px-[24px] bg-[#FFFFFF1A]">
+              <div className="flex justify-start items-center gap-[4px]">
+                <img
+                  className="w-[24px] h-[24px]"
+                  src={"/images/launchpad/percent.png"}
+                  alt="percent"
+                />
+                <span className="text-[16px] font-[400] leading-[19px] text-[#C7C8CC]">
+                  {"Profits APR"}
+                </span>
+              </div>
+              <span className="text-[18px] font-[400] leading-[21px] text-[#FFFFFF]">
+                3%
               </span>
-            </Button>
-          ) : (
-            <div></div>
-          )}
-          <div
-            className={`fllow-tag flex justify-start items-center gap-[8px] ${fllowTag.classText}`}
-          >
-            <img
-              className="w-[14px] h-[14px]"
-              src={fllowTag.icon}
-              alt="fllow"
-            />
-            <span
-              className={`text-[12px] font-[510] leading-[14px] text-center`}
-            >
-              {fllowTag.title}
-            </span>
+            </div>
+          </div>
+          <div className="w-full">
+            {item.status == 1 ? (
+              <Countdown
+                value={deadline}
+                onFinish={onFinish}
+                valueStyle={{
+                  fontSize: "96px",
+                  color: "#FFFFFF",
+                  fontWeight: "700",
+                  lineHeight: "145px"
+                }}
+              />
+            ) : item.status == 2 ? (
+              <div className="w-full flex flex-col items-center gap-[14px]">
+                <div className="w-full flex justify-between items-center">
+                  <span className="text-[14px] font-[400] leading-[17px] text-[#C7C8CC]">
+                    Supply
+                  </span>
+                  <span className="text-[14px] font-[400] leading-[17px] text-[#C7C8CC]">{`60000/8000`}</span>
+                </div>
+                <Progress
+                  percent={50}
+                  showInfo={false}
+                  strokeColor={"#FF8C19"}
+                  trailColor={"#FFF5CE"}
+                />
+              </div>
+            ) : (
+              <div className="w-full flex justify-between items-center gap-[19px]">
+                <div className="w-full h-[208px] flex flex-row items-center justify-center px-[24px] rounded-[8px] px-[24px] bg-[#FFFFFF1A]">
+                  <div className="flex flex-col text-center gap-[20px]">
+                    <span className="text-[32px] font-[700] leading-[38px] tracking-[-1px] text-[#494900]">
+                      {"0.26ETH"}
+                    </span>
+                    <span className="text-[14px] font-[274] leading-[18px] text-[#494900]">
+                      FLoor Price
+                    </span>
+                  </div>
+                </div>
+                <div className="w-full h-[208px] flex flex-row items-center justify-center px-[24px] rounded-[8px] px-[24px] bg-[#FFFFFF1A]">
+                  <div className="flex flex-col text-center gap-[20px]">
+                    <span className="text-[32px] font-[700] leading-[38px] tracking-[-1px] text-[#494900]">
+                      {"12ETH"}
+                    </span>
+                    <span className="text-[14px] font-[274] leading-[18px] text-[#494900]">
+                      7D Volume
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -163,10 +247,6 @@ const Launchpad: FC = () => {
           {list.map((item, index) => (
             <CardBox key={index} item={item} />
           ))}
-        </div>
-
-        <div className="w-full text-[48px] font-[760] leading-[57px] tracking-[-1px] text-[#FF8C19] text-center">
-          Registration Invitation
         </div>
       </div>
     </div>
